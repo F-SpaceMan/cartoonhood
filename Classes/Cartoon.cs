@@ -1,5 +1,6 @@
 using System;
 using System.Reflection.Metadata;
+
 namespace cartoonhood{
     public class Cartoon : EntidadeBase{
         //atributes
@@ -41,5 +42,9 @@ namespace cartoonhood{
         public void excluir(){
             excluido = true;
         }
+        public bool retornaExcluido(){
+            return this.excluido;
+        }
+        
     }
 }

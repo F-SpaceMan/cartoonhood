@@ -36,6 +36,7 @@ namespace cartoonhood
                 }
                 opcao = obterOpcao();
             }
+            Console.WriteLine("Tamo junto");
         }
 
         private static void listarCartoons(){
@@ -44,20 +45,26 @@ namespace cartoonhood
             var lista = repositorio.lista();
             if(lista.Count == 0){
                 Console.WriteLine("Nenhum cartoon cadastrado");
+                Console.WriteLine();
                 return;
             }
 
             foreach (var cartoon in lista)
             {
-                Console.WriteLine($"ID: {cartoon.retornaId()} - {cartoon.retornaTitulo()}");
+                var excluido = cartoon.retornaExcluido();
+                Console.WriteLine($"ID: {cartoon.retornaId()} - {cartoon.retornaTitulo()} - {(excluido ? "*Excluído*" : "")}");
+
             }
+            Console.WriteLine();
         }
 
         private static void inserirCartoon(){
             Console.WriteLine("Insira um cartoon");
+            Console.WriteLine();
 
             Console.Write("Digite o título do cartoon: ");
             string titulo = Console.ReadLine();
+            Console.WriteLine();
 
             Console.Write("Digite o ano do cartoon: ");
             int ano = int.Parse(Console.ReadLine());
@@ -69,17 +76,19 @@ namespace cartoonhood
             {
                 Console.WriteLine($"{i} - {Enum.GetName(typeof(Genero), i)}");
             }
+            Console.WriteLine();
 
             Console.Write("Digite o gênero dentre as opções listadas acima: ");
             Genero genero = (Genero)int.Parse((Console.ReadLine()));
+            Console.WriteLine();
 
             Console.Write("Preencha a descrição: ");
             string descricao = Console.ReadLine();
+            Console.WriteLine();
 
             Cartoon novoCartoon = new Cartoon(repositorio.proximoId(), titulo, genero, descricao, ano);
             
             repositorio.insere(novoCartoon);
-
 
         }
 
@@ -87,9 +96,11 @@ namespace cartoonhood
 
             Console.WriteLine("Digite o ID do cartoon a ser atualizado: ");
             int id = int.Parse(Console.ReadLine());
+            Console.WriteLine();
 
             Console.Write("Digite o título do cartoon: ");
             string titulo = Console.ReadLine();
+            Console.WriteLine();
 
             Console.Write("Digite o ano do cartoon: ");
             int ano = int.Parse(Console.ReadLine());
@@ -101,12 +112,15 @@ namespace cartoonhood
             {
                 Console.WriteLine($"{i} - {Enum.GetName(typeof(Genero), i)}");
             }
+            Console.WriteLine();
 
             Console.Write("Digite o gênero dentre as opções listadas acima: ");
             Genero genero = (Genero)int.Parse((Console.ReadLine()));
+            Console.WriteLine();
 
             Console.Write("Preencha a descrição: ");
             string descricao = Console.ReadLine();
+            Console.WriteLine();
 
             Cartoon novoCartoon = new Cartoon(id, titulo, genero, descricao, ano);
             
@@ -114,14 +128,14 @@ namespace cartoonhood
         }
 
         private static void excluirCartoon(){
-            Console.WriteLine("Digite o ID do cartoon a ser excluído: ");
+            Console.Write("Digite o ID do cartoon a ser excluído: ");
             int id = int.Parse(Console.ReadLine());
 
             repositorio.exclui(id);
         }
 
         private static void visCartoon(){
-            Console.WriteLine("Digite o ID do cartoon a ser visualizado: ");
+            Console.Write("Digite o ID do cartoon a ser visualizado: ");
             int id = int.Parse(Console.ReadLine());
 
             var cartoon = repositorio.retornaPorId(id);
